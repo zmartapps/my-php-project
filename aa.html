@@ -35,12 +35,13 @@
           return response.json(); // or response.text() for plain text
         })
         .then(data => {
-          document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+          document.getElementById('output').textContent = data;
         })
         .catch(error => {
           document.getElementById('output').textContent = 'Error: ' + error.message;
         });
     }
+    fetchData();
   </script>
 </body>
 </html>
