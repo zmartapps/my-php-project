@@ -32,7 +32,7 @@
           if (!response.ok) {
             throw new Error('Network response was not OK');
           }
-          return response.json(); // or response.text() for plain text
+          return response; // or response.text() for plain text
         })
         .then(data => {
           document.getElementById('output').textContent = data;
