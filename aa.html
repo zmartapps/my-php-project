@@ -3,33 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Current Time</title>
+  <title>Fetch and Display</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      text-align: center;
-      margin-top: 20%;
-      background-color: #f0f0f0;
+      padding: 2em;
     }
-    #clock {
-      font-size: 3em;
-      color: #333;
+    #output {
+      padding: 1em;
+      border: 1px solid #ccc;
+      background: #f9f9f9;
+      margin-top: 1em;
+      white-space: pre-wrap;
     }
   </style>
 </head>
 <body>
-  <h1>Current Time</h1>
-  <div id="clock">--:--:--</div>
+  <h1>Fetch Data from URL</h1>
+  <button onclick="fetchData()">Get Data</button>
+  <div id="output">Click the button to fetch data...</div>
 
   <script>
-    function updateTime() {
-      const now = new Date();
-      const timeString = now.toLocaleTimeString();
-      document.getElementById('clock').textContent = timeString;
-    }
+    function fetchData() {
+      const url = 'https://api.github.com'; // Replace with your desired URL
 
-    setInterval(updateTime, 1000); // Update every second
-    updateTime(); // Initial call
+      fetch(url)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not OK');
+          }
+          return response.json(); // or response.text() for plain text
+        })
+        .then(data => {
+          document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+        })
+        .catch(error => {
+          document.getElementById('output').textContent = 'Error: ' + error.message;
+        });
+    }
   </script>
 </body>
 </html>
